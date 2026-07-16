@@ -1,0 +1,8 @@
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          21160
+- Dir:          C:\Users\MSI STEALTH\OneDrive\Documentos\CODE\growthlobby-v2
+- Log:          .next\dev\logs\next-development.log
+
+Run taskkill /PID 21160 /F to stop it.

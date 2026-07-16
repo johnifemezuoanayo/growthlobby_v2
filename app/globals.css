@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --brand-primary: #c0ed0b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand-primary: var(--brand-primary);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+/* Custom styles for high-fidelity 3D cylinders background */
+.cylinder-slat {
+  background: linear-gradient(
+    90deg,
+    rgba(6, 15, 6, 0.95) 0%,
+    rgba(12, 42, 12, 0.9) 25%,
+    rgba(22, 90, 22, 0.85) 50%,
+    rgba(12, 42, 12, 0.9) 75%,
+    rgba(6, 15, 6, 0.95) 100%
+  );
+  box-shadow:
+    inset 1px 0 0 rgba(255, 255, 255, 0.03),
+    inset -1px 0 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0d0d;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+@media (max-width: 640px) {
+  .animate-marquee {
+    animation-duration: 28s;
+  }
+}
+.ts-dotgrid {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.08) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+@keyframes ts-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+.ts-card {
+  animation: ts-float 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-card {
+    animation: none;
+  }
+}
+
+/* staircase offsets — desktop only */
+@media (min-width: 1024px) {
+  .ts-row:nth-child(1) {
+    margin-left: 0;
+  }
+  .ts-row:nth-child(2) {
+    margin-left: 8rem;
+    margin-top: 2.5rem;
+  }
+  .ts-row:nth-child(3) {
+    margin-left: 16rem;
+    margin-top: 2.5rem;
+  }
+  .ts-row:nth-child(4) {
+    margin-left: 24rem;
+    margin-top: 2.5rem;
+  }
+}
