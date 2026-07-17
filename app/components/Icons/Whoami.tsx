@@ -15,7 +15,7 @@ function Whoami() {
         x2="121.208"
         y2="48"
         stroke="#2F2B2B"
-        stroke-width="0.416667"
+        strokeWidth="0.416667"
       />
       <line
         x1="116"
@@ -23,7 +23,7 @@ function Whoami() {
         x2="126"
         y2="42.7917"
         stroke="#2F2B2B"
-        stroke-width="0.416667"
+        strokeWidth="0.416667"
       />
       <line
         x1="120.208"
@@ -31,7 +31,7 @@ function Whoami() {
         x2="120.208"
         y2="10"
         stroke="#2F2B2B"
-        stroke-width="0.416667"
+        strokeWidth="0.416667"
       />
       <line
         x1="115"
@@ -39,7 +39,7 @@ function Whoami() {
         x2="125"
         y2="4.79167"
         stroke="#2F2B2B"
-        stroke-width="0.416667"
+        strokeWidth="0.416667"
       />
       <line
         x1="5.20833"
@@ -47,14 +47,14 @@ function Whoami() {
         x2="5.20833"
         y2="10"
         stroke="#2F2B2B"
-        stroke-width="0.416667"
+        strokeWidth="0.416667"
       />
       <line
         y1="4.79167"
         x2="10"
         y2="4.79167"
         stroke="#2F2B2B"
-        stroke-width="0.416667"
+        strokeWidth="0.416667"
       />
       <line
         x1="5.20833"

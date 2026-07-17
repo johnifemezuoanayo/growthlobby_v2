@@ -4,6 +4,7 @@ import React from 'react'
 import NavButton from '../../ui/Navbar/NavButton';
 import { motion } from "motion/react";
 import AvatarStack from './AvatarComp';
+import ContactForm from '../../ui/ContactForm/ContactForm';
 
 function ContactMeSection() {
   return (
@@ -24,14 +25,10 @@ function ContactMeSection() {
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-80" />
                       <span className="relative inline-flex size-2.5 rounded-full bg-brand-primary" />
                     </span>
-                    <span className="text-[9px] uppercase tracking-widest text-brand-primary">
+                    <span className="text-[9px] uppercase tracking-widest text-white">
                       Available for work
                     </span>
                   </div>
-                  <span className="h-3 w-px bg-neutral-800" />
-                  <span className="text-[9px] font-medium uppercase tracking-widest text-neutral-300">
-                    Get in touch now
-                  </span>
                 </div>
 
                 <h1 className="text-4xl font-medium leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl">
@@ -56,17 +53,10 @@ function ContactMeSection() {
                   <AvatarStack />
                 </div>
               </motion.div>
-              {/* <ContactForm
-              formRef={formRef}
-              nameInputRef={nameInputRef}
-              formData={formData}
-              formErrors={formErrors}
-              isSubmitting={isSubmitting}
-              isSubmitted={isSubmitted}
-              onChange={handleFormChange}
-              onSubmit={handleFormSubmit}
-              onReset={handleResetForm}
-            /> */}
+
+
+
+              <ContactForm />
             </div>
           </main>
         </div>

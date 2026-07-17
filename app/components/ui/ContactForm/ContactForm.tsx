@@ -2,6 +2,9 @@
 
 import React, {
   forwardRef,
+  useMemo,
+  useRef,
+  useState,
   type ChangeEvent,
   type FormEvent,
   type ReactNode,
@@ -36,17 +39,79 @@ type ContactFormProps = {
   onReset: () => void;
 };
 
-export function ContactForm({
-  formRef,
-  nameInputRef,
-  formData,
-  formErrors,
-  isSubmitting,
-  isSubmitted,
-  onChange,
-  onSubmit,
-  onReset,
-}: ContactFormProps) {
+const initialFormData: FormData = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+}; 
+export function ContactForm() {
+  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [isScheduled, setIsScheduled] = useState(false);
+
+  const formRef = useRef<HTMLDivElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
+  const daysAhead = useMemo(
+    () =>
+      Array.from({ length: 7 }, (_, index) => {
+        const date = new Date();
+        date.setDate(date.getDate() + index + 1);
+        return date;
+      }),
+    [],
+  );
+
+  const handleFormChange = (
+    event: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value } = event.target;
+    setFormData((current) => ({ ...current, [name]: value }));
+
+    if (formErrors[name as keyof FormData]) {
+      setFormErrors((current) => ({ ...current, [name]: "" }));
+    }
+  };
+
+  const handleFormSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    const errors: FormErrors = {};
+    if (!formData.name.trim()) errors.name = "Full name is required";
+    if (!formData.email.trim()) {
+      errors.email = "Email address is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Please enter a valid email address";
+    }
+    if (!formData.subject) errors.subject = "Please select a service subject";
+    if (!formData.message.trim()) errors.message = "Message is required";
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    window.setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    }, 1200);
+  };
+
+  const handleResetForm = () => {
+    setFormData(initialFormData);
+    setFormErrors({});
+    setIsSubmitted(false);
+  };
+
   return (
     <motion.div
       ref={formRef}
@@ -69,7 +134,7 @@ export function ContactForm({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onSubmit={onSubmit}
+              onSubmit={handleFormSubmit}
               className="flex flex-col gap-6"
             >
               <div className="grid gap-6 sm:grid-cols-2">
@@ -81,7 +146,7 @@ export function ContactForm({
                   value={formData.name}
                   error={formErrors.name}
                   placeholder="Enter Full Name"
-                  onChange={onChange}
+                  onChange={handleFormChange}
                 />
                 <LabelledInput
                   icon={<Mail className="size-4 text-neutral-400" />}
@@ -91,7 +156,7 @@ export function ContactForm({
                   value={formData.email}
                   error={formErrors.email}
                   placeholder="Enter Email"
-                  onChange={onChange}
+                  onChange={handleFormChange}
                 />
               </div>
 
@@ -103,7 +168,7 @@ export function ContactForm({
                   <select
                     name="subject"
                     value={formData.subject}
-                    onChange={onChange}
+                    onChange={handleFormChange}
                     className={`w-full cursor-pointer appearance-none rounded-sm border border-transparent bg-[#f4f4f4] px-4 py-4 text-sm text-neutral-700 outline-none transition focus:border-neutral-300 focus:bg-white ${
                       formErrors.subject ? "border-red-500" : ""
                     }`}
@@ -131,7 +196,7 @@ export function ContactForm({
                 <textarea
                   name="message"
                   value={formData.message}
-                  onChange={onChange}
+                  onChange={handleFormChange}
                   placeholder="What We Can Help You"
                   rows={6}
                   className={`w-full resize-none rounded-sm border border-transparent bg-[#f4f4f4] px-4 py-4 text-sm text-neutral-700 outline-none transition focus:border-neutral-300 focus:bg-white ${
@@ -170,7 +235,7 @@ export function ContactForm({
                 {formData.email}.
               </p>
               <button
-                onClick={onReset}
+                onClick={handleResetForm}
                 className="mt-6 inline-flex items-center rounded-sm bg-neutral-900 px-5 py-3 text-xs font-bold uppercase tracking-widest text-white hover:bg-neutral-800"
               >
                 Submit another enquiry

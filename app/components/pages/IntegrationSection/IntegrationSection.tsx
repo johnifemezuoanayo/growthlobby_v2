@@ -25,7 +25,7 @@ import Image from "next/image";
 
 function useInView(
   threshold: number = 0.15,
-): [React.RefObject<HTMLDivElement>, boolean] {
+): [React.RefObject<HTMLDivElement | null>, boolean] {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState<boolean>(false);
 
@@ -109,7 +109,7 @@ const COLORS: ColorTokens = {
   body: "#5B5F53",
   badgeBg: "#DAD9CB",
   badgeText: "#2B2E20",
-  frameMark: "#8C9080",
+  frameMark: "#979b8dff",
   dot: "#E6E6DD",
   line: "#D9DACE",
   nodeBg: "#FFFFFF",
@@ -135,38 +135,12 @@ interface Node {
   bendX?: number;
 }
 
-const HUB = { x: 50, y: 54 };
-
-const NODES: Node[] = [
-  // left outer
-  { Icon: Triangle, color: "#2E6BE5", x: 22.5, y: 16, bendX: 34 },
-  { Icon: ShoppingBag, color: "#3FA847", x: 25, y: 42, bendX: 39 },
-  { Icon: XIcon, color: "#2E7DE0", x: 28, y: 66, bendX: 38 },
-  { Icon: Asterisk, color: "#E0574B", x: 22.5, y: 91, bendX: 38 },
-  // left inner
-  { Icon: Zap, color: "#39B24A", x: 34, y: 16 },
-  { Icon: NotebookText, color: "#2B2B2B", x: 39, y: 45 },
-  { Icon: Package, color: "#D97757", x: 38, y: 83 },
-  // right outer
-  { Icon: Share2, color: "#E0632E", x: 77.5, y: 16, bendX: 66 },
-  { Icon: Diamond, color: "#4C7BF0", x: 77, y: 42, bendX: 61 },
-  { Icon: BarChart3, color: "#E08A2E", x: 72, y: 66, bendX: 62 },
-  { Icon: Flame, color: "#E0A82E", x: 77, y: 91, bendX: 62 },
-  // right inner
-  { label: "[w", color: "#2B2B2B", x: 61.5, y: 45 },
-  { label: "S", color: "#5B4FD6", x: 75, y: 42 },
-  { Icon: Timer, color: "#4C6BF0", x: 67.5, y: 91 },
-];
-
-/* ---------------------------------------------------------------------- */
-/*  Corner marks (reused badge decoration)                                */
-/* ---------------------------------------------------------------------- */
 
 function CornerMarks() {
   const markStyle: React.CSSProperties = {
     position: "absolute",
-    fontSize: 12,
-    lineHeight: "10px",
+    fontSize: 14,
+    lineHeight: "9px",
     color: COLORS.frameMark,
   };
   return (
@@ -179,78 +153,9 @@ function CornerMarks() {
   );
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Connector line — draws itself in once the diagram is in view          */
-/* ---------------------------------------------------------------------- */
 
-function ConnectorPath({
-  node,
-  inView,
-  delay,
-}: {
-  node: Node;
-  inView: boolean;
-  delay: number;
-}) {
-  const d = node.bendX
-    ? `M ${node.x} ${node.y} L ${node.bendX} ${node.y} L ${HUB.x} ${HUB.y}`
-    : `M ${node.x} ${node.y} L ${HUB.x} ${HUB.y}`;
-
-  return (
-    <path
-      d={d}
-      fill="none"
-      stroke={COLORS.line}
-      strokeWidth={0.25}
-      pathLength={1}
-      style={{
-        strokeDasharray: 1,
-        strokeDashoffset: inView ? 0 : 1,
-        transition: `stroke-dashoffset 1s ease ${delay}s`,
-      }}
-    />
-  );
-}
-
-/* ---------------------------------------------------------------------- */
-/*  Icon node                                                             */
-/* ---------------------------------------------------------------------- */
-
-function IconNode({ node, delay }: { node: Node; delay: number }) {
-  const [ref, inView] = useInView(0.1);
-  const { Icon, label, color, x, y } = node;
-
-  return (
-    <div
-      ref={ref}
-      className="absolute flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border shadow-sm sm:h-12 sm:w-12"
-      style={{
-        left: `${x}%`,
-        top: `${y}%`,
-        backgroundColor: COLORS.nodeBg,
-        borderColor: COLORS.nodeBorder,
-        opacity: inView ? 1 : 0,
-        transform: `translate(-50%, -50%) scale(${inView ? 1 : 0.6})`,
-        transition: `opacity 0.5s ease ${delay}s, transform 0.5s cubic-bezier(.34,1.56,.64,1) ${delay}s`,
-      }}
-    >
-      {Icon ? (
-        <Icon size={16} color={color} strokeWidth={2} />
-      ) : (
-        <span className="text-sm font-bold" style={{ color }}>
-          {label}
-        </span>
-      )}
-    </div>
-  );
-}
-
-/* ---------------------------------------------------------------------- */
-/*  Component                                                             */
-/* ---------------------------------------------------------------------- */
 
 export default function IntegrationSection() {
-  const [diagramRef, diagramInView] = useInView(0.1);
 
   return (
     <section
@@ -291,9 +196,9 @@ export default function IntegrationSection() {
             your marketing tools and automations with your website.
           </p>
         </Reveal>
-        <div>
+        <div className="pt-10">
+          <Image src="/images/integration.png" alt="john ifemezuo integration justify-center" width={2600} height={1000} className="mx-auto justify-center"/>
         </div>
-      <Image src="/images/integration.png" alt="john ifemezuo integration justify-center" width={1200} height={700} />
       </div>
 
       {/* diagram — horizontally scrollable on narrow screens */}

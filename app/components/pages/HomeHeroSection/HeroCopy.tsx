@@ -4,12 +4,9 @@ import { Play } from "lucide-react";
 import { motion } from "motion/react";
 import NavButton from "../../ui/Navbar/NavButton";
 
-type HeroCopyProps = {
-  onGetInTouch: () => void;
-  onScheduleCall: () => void;
-};
 
-export function HeroCopy({ onGetInTouch, onScheduleCall }: HeroCopyProps) {
+
+export function HeroCopy() {
   return (
     <motion.div
       initial={{ opacity: 0, x: -30 }}
@@ -18,7 +15,7 @@ export function HeroCopy({ onGetInTouch, onScheduleCall }: HeroCopyProps) {
       className="flex flex-col items-start gap-6 w- lg:col-span-7 lg:pr-6"
     >
       <div className="inline-flex border items-center gap-3 rounded-sm  border-white/20 px-1 py-1 shadow-inner backdrop-blur-sm">
-        <div className="flex items-center gap-2 bg-linear-to-r/srgb from-[#539107] to-[#232B02]/20 from- py-2 px-3 rounded-sm">
+        <div className="flex items-center gap-2 bg-linear-to-r/srgb from-[#539107] to-[#232B02]/20  py-2 px-3 rounded-sm">
           <span className="relative bg flex size-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-80" />
             <span className="relative inline-flex size-2.5 rounded-full bg-brand-primary" />
@@ -27,8 +24,8 @@ export function HeroCopy({ onGetInTouch, onScheduleCall }: HeroCopyProps) {
             Available for work
           </span>
         </div>
-        <span className="h-3 w-px bg-neutral-800" />
-        <span className="text-[9px] font-medium uppercase tracking-widest text-neutral-300">
+        <span className="h-3 w-px bg-white" />
+        <span className="text-[9px] pr-3 font-medium uppercase tracking-widest text-neutral-300">
           Get in touch now
         </span>
       </div>
