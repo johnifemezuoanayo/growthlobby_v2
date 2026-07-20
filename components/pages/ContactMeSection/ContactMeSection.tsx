@@ -54,8 +54,6 @@ function ContactMeSection() {
                 </div>
               </motion.div>
 
-
-
               <ContactForm />
             </div>
           </main>

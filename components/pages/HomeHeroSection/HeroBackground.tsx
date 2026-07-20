@@ -3,7 +3,7 @@ import Image from "next/image";
 export function HeroBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[#060606]">
-      <div className="absolute inset-0 bg-black/50 z-10"  />
+      <div className="absolute inset-0 bg-black/80 z-10"  />
       <Image
         width={1920}
         height={1080}

@@ -6,8 +6,8 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/contact-me", label: "Contact me" },
+  // { href: "/motion", label: "Motion" },
 ];
 
 function Navbar() {

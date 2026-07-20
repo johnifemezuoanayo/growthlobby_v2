@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Footer } from "./components/footer";
-import NavbarLayout from "./components/NavbarLayout";
 import "./globals.css";
-import { FloatingCallButton } from "./components/pages/HomeHeroSection/FloatingCallButton";
+import NavbarLayout from "@/components/NavbarLayout";
+import { FloatingCallButton } from "@/components/pages/HomeHeroSection/FloatingCallButton";
+import { Footer } from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
